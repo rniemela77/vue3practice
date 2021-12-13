@@ -46,22 +46,26 @@
       />
       {{ price.label }}
     </span>
-    <span class="price">{{ price.amount > 0 ? price.amount : "Call" }}</span>
+
+    <span class="price">
+      {{ price.amount > 0 ? formatPrice(price.amount) : "Call" }}
+    </span>
 
     <span v-if="showSavings" class="savings">
-      <!-- {{ type === "new" ? "MSRP" : "Retail" }} -->
-      <!-- {{ formatPrice(msrp) }} - Savings -->
-      <!-- {{ formatPrice(msrp - priceDisplayed) }} -->
       {{ type === "new" ? "MSRP" : "Retail" }}
       {{ formatPrice(props.msrp) }} - Savings
       {{ formatPrice(props.msrp - price.amount) }}
     </span>
 
     <button @click="openBreakout">Show Breakout</button>
+
+    <transition name="fade">
+      <span class="sticker" v-if="showSticker">Sticker</span>
+    </transition>
   </div>
 </template>
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { formatPrice } from "../helpers";
 
 const props = defineProps({
@@ -171,8 +175,19 @@ const price = computed(() => {
       Savings
 */
 const showSavings = computed(() => {
-  return props.chapmanPrice > 0 && props.msrp - props.chapmanPrice > 0;
+  return (
+    props.chapmanPrice > 0 &&
+    props.msrp - props.chapmanPrice > 0 &&
+    (props.type !== "new" || !props.isMsrpRequired || props.isAuthenticated)
+  );
 });
+
+let showSticker = ref(false);
+
+setTimeout(() => {
+  showSticker.value = true;
+  console.log("hello");
+}, 3000);
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -218,5 +233,24 @@ const showSavings = computed(() => {
 button {
   width: 100%;
   height: 2rem;
+}
+.price {
+  color: green;
+  font-size: 200%;
+}
+.savings {
+  opacity: 0.6;
+}
+.sticker {
+  padding: 1rem;
+  border: 10px solid lightskyblue;
+  display: inline-block;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
