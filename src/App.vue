@@ -1,5 +1,7 @@
 <template>
   <div class="wrapper">
+    {{ counter.count }} {{ variables.name }}
+    <button @click="handleClick">CLICK</button>
     <PricingBreakout
       v-if="showBreakout"
       @show-pricing-breakout="showBreakout = $event"
@@ -90,6 +92,9 @@ import PricingSection from "./components/PricingSection.vue";
 import PricingBreakout from "./components/PricingBreakout.vue";
 import { ref } from "vue";
 
+import { useCounterStore } from "@/store"; // import store index file
+import { useVariablesStore } from "./store/variables"; // import specific store file
+
 const msrp = ref(100);
 const chapmanPrice = ref(90);
 const myChapmanDiscount = ref(1);
@@ -98,6 +103,19 @@ const isAuthenticated = ref(true);
 const isMsrpRequired = ref(false);
 
 const showBreakout = ref(true);
+
+// pinia test
+const counter = useCounterStore();
+const variables = useVariablesStore();
+
+const handleClick = () => {
+  /*
+    SEVERAL OPTIONS FOR MANAGING STATE:
+  */
+  // counter.count++;
+  // counter.$patch({ count: counter.count + 1 });
+  counter.increment();
+};
 </script>
 
 <style>
