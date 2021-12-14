@@ -60,7 +60,7 @@
     <button @click="openBreakout">Show Breakout</button>
 
     <transition name="fade">
-      <span class="sticker" v-if="showSticker">Sticker</span>
+      <span class="sticker" v-if="showSticker">SetTimeout + Transition Test</span>
     </transition>
   </div>
 </template>
@@ -194,7 +194,7 @@ setTimeout(() => {
 <style scoped>
 .pricing {
   font-size: 100%;
-  background: rgb(235, 235, 235);
+  background: rgb(228, 255, 231);
   display: inline-block;
   width: 20rem;
   padding: 0 0.25rem;
@@ -248,9 +248,11 @@ button {
 }
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.5s ease;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 </style>

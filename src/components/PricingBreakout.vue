@@ -1,7 +1,7 @@
 <template>
   <div class="breakout">
     <h1>I am breakout</h1>
-    <button @click="closeBreakout">X</button>
+    <button @click="closeBreakout">close</button>
   </div>
 </template>
 

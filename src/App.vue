@@ -1,121 +1,34 @@
 <template>
-  <div class="wrapper">
-    {{ counter.count }} {{ variables.name }}
-    <button @click="handleClick">CLICK</button>
-    <PricingBreakout
-      v-if="showBreakout"
-      @show-pricing-breakout="showBreakout = $event"
-    />
+  <button @click="togglePrice" :class="{ 'selected': showingPrice }">
+    Toggle Price
+  </button>
+  <button @click="toggleState" :class="{ 'selected': showingState }">Toggle State</button>
+  <button @click="toggleTypescript" :class="{ 'selected': showingTypescript }">Toggle Typescript</button>
+  <button @click="toggleIcons" :class="{ 'selected': showingIcons }">Toggle Icons</button>
 
-    <PricingSection
-      :msrp="msrp"
-      :chapman-price="chapmanPrice"
-      :my-chapman-discount="myChapmanDiscount"
-      :type="type"
-      :rebates="{}"
-      :discounts="{}"
-      vin="123"
-      :isMsrpRequired="isMsrpRequired"
-      :isAuthenticated="isAuthenticated"
-      @show-pricing-breakout="showBreakout = $event"
-    />
-    <div class="controls">
-      <div class="range-group">
-        <input
-          type="range"
-          class="slider"
-          id="msrpAmount"
-          name="msrpAmount"
-          min="-50000"
-          max="50000"
-          step="10000"
-          v-model.number="msrp"
-        />
-      </div>
-      <div class="range-group">
-        <input
-          class="slider"
-          type="range"
-          id="chapmanPriceAmount"
-          name="chapmanPriceAmount"
-          min="-50000"
-          max="50000"
-          step="10000"
-          v-model.number="chapmanPrice"
-        />
-      </div>
-      <div class="range-group">
-        <input
-          type="range"
-          class="slider"
-          id="myChapmanDiscountAmount"
-          name="myChapmanDiscountAmount"
-          min="-50000"
-          max="50000"
-          step="10000"
-          v-model.number="myChapmanDiscount"
-        />
-      </div>
-      <div class="range-group">
-        <input
-          type="radio"
-          id="type-new"
-          name="new"
-          value="new"
-          v-model="type"
-        />
-        <label for="type-new">New</label>
-
-        <input
-          type="radio"
-          id="type-used"
-          name="used"
-          value="used"
-          v-model="type"
-        />
-        <label for="type-used">Used</label>
-      </div>
-      <div class="range-group">
-        <input type="checkbox" id="isMsrpRequired" v-model="isMsrpRequired" />
-        <label for="isMsrpRequired">{{ isMsrpRequired }}</label>
-      </div>
-      <div class="range-group">
-        <input type="checkbox" id="isAuthenticated" v-model="isAuthenticated" />
-        <label for="isAuthenticated">{{ isAuthenticated }}</label>
-      </div>
-    </div>
-  </div>
+  <Price v-if="showingPrice" />
+  <State v-if="showingState" />
+  <Typescript v-if="showingTypescript" />
+  <IconStuff v-if="showingIcons" />
 </template>
 
 <script setup lang="ts">
-import PricingSection from "./components/PricingSection.vue";
-import PricingBreakout from "./components/PricingBreakout.vue";
 import { ref } from "vue";
+import Price from "./components/Price.vue";
+import State from "./components/State.vue";
+import Typescript from "./components/Typescript.vue";
+import IconStuff from "./components/IconStuff.vue";
 
-import { useCounterStore } from "@/store"; // import store index file
-import { useVariablesStore } from "./store/variables"; // import specific store file
+const showingPrice = ref(true);
+const showingState = ref(false);
+const showingTypescript = ref(false);
+const showingIcons = ref(false);
 
-const msrp = ref(100);
-const chapmanPrice = ref(90);
-const myChapmanDiscount = ref(1);
-const type = ref("new");
-const isAuthenticated = ref(true);
-const isMsrpRequired = ref(false);
-
-const showBreakout = ref(true);
-
-// pinia test
-const counter = useCounterStore();
-const variables = useVariablesStore();
-
-const handleClick = () => {
-  /*
-    SEVERAL OPTIONS FOR MANAGING STATE:
-  */
-  // counter.count++;
-  // counter.$patch({ count: counter.count + 1 });
-  counter.increment();
-};
+const togglePrice = () => (showingPrice.value = !showingPrice.value);
+const toggleState = () => (showingState.value = !showingState.value);
+const toggleTypescript = () =>
+  (showingTypescript.value = !showingTypescript.value);
+const toggleIcons = () => (showingIcons.value = !showingIcons.value);
 </script>
 
 <style>
@@ -124,63 +37,14 @@ const handleClick = () => {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
 }
-input {
-  font-size: 200%;
+button {
+  font-size: 150%;
+  border: none;
+  padding: 1rem 2rem;
 }
-.range-group {
-  margin: 0 auto;
-  height: 2rem;
-  display: flex;
-  align-items: center;
-  text-align: left;
-}
-.slider {
-  -webkit-appearance: none;
-  width: 12rem;
-  /* height: 25px; */
-  background: #d3d3d3;
-  /* outline: none; */
-  opacity: 0.7;
-  -webkit-transition: 0.2s;
-  transition: opacity 0.2s;
-}
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 25px;
-  height: 25px;
-  background: #04aa6d;
-  cursor: pointer;
-}
-.slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  background: #04aa6d;
-  cursor: pointer;
-}
-label {
-  background: rgb(228, 228, 228);
-  padding: 0.3rem;
-  color: white;
-}
-input:checked + label {
-  background: rgb(1, 180, 10);
-}
-input + label {
-  display: inline-block;
-  width: 3rem;
-  text-align: center;
-  background: rgb(145, 2, 2);
-}
-input[type="radio"],
-input[type="checkbox"] {
-  display: none;
-}
-.wrapper {
-  display: flex;
-  justify-content: center;
+.selected {
+  background: lime;
 }
 </style>
