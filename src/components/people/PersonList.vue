@@ -1,6 +1,5 @@
 <template>
   <div class="wrapper">
-    <h1>Typescript Interface</h1>
     <template v-for="person in people" :key="person">
       <Person :person="person" />
     </template>

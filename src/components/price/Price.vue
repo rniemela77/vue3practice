@@ -17,6 +17,7 @@
       :isAuthenticated="isAuthenticated"
       @show-pricing-breakout="showBreakout = $event"
     />
+
     <div class="controls">
       <div class="range-group">
         <input
@@ -114,9 +115,7 @@ input {
 .slider {
   -webkit-appearance: none;
   width: 12rem;
-  /* height: 25px; */
   background: #d3d3d3;
-  /* outline: none; */
   opacity: 0.7;
   -webkit-transition: 0.2s;
   transition: opacity 0.2s;

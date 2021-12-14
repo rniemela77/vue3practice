@@ -38,7 +38,7 @@
     <span class="label">
       <img
         v-if="price.showMyChapmanLogo"
-        :src="require(`../assets/img/mychapman-logo.svg`)"
+        :src="require(`../../assets/img/mychapman-logo.svg`)"
         alt="My Chapman logo"
         loading="lazy"
         width="150"
@@ -66,7 +66,7 @@
 </template>
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { formatPrice } from "../helpers";
+import { formatPrice } from "../../helpers";
 
 const props = defineProps({
   msrp: {

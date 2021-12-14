@@ -56,9 +56,9 @@ path/circle/etc    stroke="none"
 
 <script setup lang="ts">
 import IconBase from "./IconBase.vue";
-import MouseIcon from "./icons/MouseIcon.vue";
-import CoolIcon from "./icons/CoolIcon.vue";
-import HideIcon from "./icons/HideIcon.vue";
+import MouseIcon from "../icons/MouseIcon.vue";
+import CoolIcon from "../icons/CoolIcon.vue";
+import HideIcon from "../icons/HideIcon.vue";
 </script>
 
 <style scoped>

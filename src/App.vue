@@ -1,33 +1,44 @@
 <template>
-  <button @click="togglePrice" :class="{ 'selected': showingPrice }">
+  <button @click="togglePrice" :class="['button', { selected: showingPrice }]">
     Toggle Price
   </button>
-  <button @click="toggleState" :class="{ 'selected': showingState }">Toggle State</button>
-  <button @click="toggleTypescript" :class="{ 'selected': showingTypescript }">Toggle Typescript</button>
-  <button @click="toggleIcons" :class="{ 'selected': showingIcons }">Toggle Icons</button>
+  <button @click="toggleState" :class="['button', { selected: showingState }]">
+    Toggle State
+  </button>
+  <button
+    @click="togglePersonList"
+    :class="['button', { selected: showingPersonList }]"
+  >
+    Toggle PersonList
+  </button>
+  <button @click="toggleIcons" :class="['button', { selected: showingIcons }]">
+    Toggle Icons
+  </button>
 
   <Price v-if="showingPrice" />
   <State v-if="showingState" />
-  <Typescript v-if="showingTypescript" />
+  <PersonList v-if="showingPersonList" />
   <IconStuff v-if="showingIcons" />
+  <ApiGet />
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-import Price from "./components/Price.vue";
+import Price from "./components/price/Price.vue";
 import State from "./components/State.vue";
-import Typescript from "./components/Typescript.vue";
-import IconStuff from "./components/IconStuff.vue";
+import PersonList from "./components/people/PersonList.vue";
+import IconStuff from "./components/icon/IconStuff.vue";
+import ApiGet from "./components/ApiGet.vue";
 
-const showingPrice = ref(true);
+const showingPrice = ref(false);
 const showingState = ref(false);
-const showingTypescript = ref(false);
+const showingPersonList = ref(false);
 const showingIcons = ref(false);
 
 const togglePrice = () => (showingPrice.value = !showingPrice.value);
 const toggleState = () => (showingState.value = !showingState.value);
-const toggleTypescript = () =>
-  (showingTypescript.value = !showingTypescript.value);
+const togglePersonList = () =>
+  (showingPersonList.value = !showingPersonList.value);
 const toggleIcons = () => (showingIcons.value = !showingIcons.value);
 </script>
 
@@ -39,7 +50,7 @@ const toggleIcons = () => (showingIcons.value = !showingIcons.value);
   text-align: center;
   margin-top: 60px;
 }
-button {
+.button {
   font-size: 150%;
   border: none;
   padding: 1rem 2rem;
