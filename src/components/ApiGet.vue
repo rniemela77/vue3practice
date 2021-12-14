@@ -1,11 +1,37 @@
 <template>
   <div class="wrapper">
     <h1>Api test</h1>
+    <code>{{ text }}</code>
   </div>
 </template>
 
 <script setup lang="ts">
-console.log("uhhh");
+import { ref } from "vue";
+
+const text = ref("");
+
+/*
+const axios = require("axios");
+
+const url = "https://reqbin.com/echo";
+
+axios
+  .get(url)
+  .then((response) => {
+    console.log(response);
+    text.value = response.data;
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+*/
+const axios = require("axios");
+async function getAxios() {
+  let res = await axios.get("https://reqbin.com/echo");
+
+  text.value = res.data;
+}
+getAxios();
 </script>
 
 <style scoped>
