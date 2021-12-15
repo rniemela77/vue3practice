@@ -39,6 +39,7 @@
   <IconStuff v-if="showingIcons" />
   <ApiGet v-if="showingApiGet" />
   <ChipsDisplay v-if="showingChipsDisplay" type="new" />
+  <FormValidate v-if="showingFormValidate"/>
 </template>
 
 <script setup lang="ts">
@@ -49,6 +50,7 @@ import PersonList from "./components/people/PersonList.vue";
 import IconStuff from "./components/icon/IconStuff.vue";
 import ApiGet from "./components/ApiGet.vue";
 import ChipsDisplay from "./components/ChipsDisplay.vue";
+import FormValidate from "./components/FormValidate.vue";
 
 const showingPrice = ref(false);
 const showingState = ref(false);
