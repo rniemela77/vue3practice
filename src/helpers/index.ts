@@ -6,3 +6,10 @@ export const formatPrice = (value: number) => {
     })
   );
 };
+
+export const urlEncode = (input: string) => {
+  if (typeof input !== "string") {
+    return input;
+  }
+  return input.replace(/\s/g, "+");
+};

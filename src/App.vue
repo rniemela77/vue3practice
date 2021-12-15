@@ -14,12 +14,25 @@
   <button @click="toggleIcons" :class="['button', { selected: showingIcons }]">
     Toggle Icons
   </button>
+  <button
+    @click="toggleApiGet"
+    :class="['button', { selected: showingApiGet }]"
+  >
+    Toggle ApiGet
+  </button>
+  <button
+    @click="toggleChipsDisplay"
+    :class="['button', { selected: showingChipsDisplay }]"
+  >
+    Toggle ChipsDisplay
+  </button>
 
   <Price v-if="showingPrice" />
   <State v-if="showingState" />
   <PersonList v-if="showingPersonList" />
   <IconStuff v-if="showingIcons" />
-  <ApiGet />
+  <ApiGet v-if="showingApiGet" />
+  <ChipsDisplay v-if="showingChipsDisplay" />
 </template>
 
 <script setup lang="ts">
@@ -29,17 +42,23 @@ import State from "./components/State.vue";
 import PersonList from "./components/people/PersonList.vue";
 import IconStuff from "./components/icon/IconStuff.vue";
 import ApiGet from "./components/ApiGet.vue";
+import ChipsDisplay from "./components/ChipsDisplay.vue";
 
 const showingPrice = ref(false);
 const showingState = ref(false);
 const showingPersonList = ref(false);
 const showingIcons = ref(false);
+const showingApiGet = ref(false);
+const showingChipsDisplay = ref(true);
 
 const togglePrice = () => (showingPrice.value = !showingPrice.value);
 const toggleState = () => (showingState.value = !showingState.value);
 const togglePersonList = () =>
   (showingPersonList.value = !showingPersonList.value);
 const toggleIcons = () => (showingIcons.value = !showingIcons.value);
+const toggleApiGet = () => (showingApiGet.value = !showingApiGet.value);
+const toggleChipsDisplay = () =>
+  (showingChipsDisplay.value = !showingChipsDisplay.value);
 </script>
 
 <style>
