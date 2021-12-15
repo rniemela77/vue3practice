@@ -25,6 +25,9 @@ axios
     console.log(error);
   });
 */
+/*
+WORKS
+
 const axios = require("axios");
 async function getAxios() {
   let res = await axios.get("https://reqbin.com/echo");
@@ -32,6 +35,7 @@ async function getAxios() {
   text.value = res.data;
 }
 getAxios();
+*/
 </script>
 
 <style scoped>

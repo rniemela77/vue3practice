@@ -26,13 +26,19 @@
   >
     Toggle ChipsDisplay
   </button>
+  <button
+    @click="toggleFormValidate"
+    :class="['button', { selected: showingFormValidate }]"
+  >
+    Toggle FormValidate
+  </button>
 
   <Price v-if="showingPrice" />
   <State v-if="showingState" />
   <PersonList v-if="showingPersonList" />
   <IconStuff v-if="showingIcons" />
   <ApiGet v-if="showingApiGet" />
-  <ChipsDisplay v-if="showingChipsDisplay" />
+  <ChipsDisplay v-if="showingChipsDisplay" type="new" />
 </template>
 
 <script setup lang="ts">
@@ -49,7 +55,8 @@ const showingState = ref(false);
 const showingPersonList = ref(false);
 const showingIcons = ref(false);
 const showingApiGet = ref(false);
-const showingChipsDisplay = ref(true);
+const showingChipsDisplay = ref(false);
+const showingFormValidate = ref(true);
 
 const togglePrice = () => (showingPrice.value = !showingPrice.value);
 const toggleState = () => (showingState.value = !showingState.value);
@@ -59,6 +66,8 @@ const toggleIcons = () => (showingIcons.value = !showingIcons.value);
 const toggleApiGet = () => (showingApiGet.value = !showingApiGet.value);
 const toggleChipsDisplay = () =>
   (showingChipsDisplay.value = !showingChipsDisplay.value);
+const toggleFormValidate = () =>
+  (showingFormValidate.value = !showingFormValidate.value);
 </script>
 
 <style>

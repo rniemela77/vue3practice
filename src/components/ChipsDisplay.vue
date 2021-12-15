@@ -150,24 +150,40 @@ import { computed } from "vue";
 import { formatPrice, urlEncode } from "../helpers";
 import _groupBy from "lodash/groupBy";
 import _some from "lodash/some";
+import { useFiltersStore } from "@/store/filters";
 
-// Set props
+/*
+    Props
+*/
 interface Props {
-  type: string;
+  type: "new"; // cannot use 'string'! Typescript is TOO SMART
 }
 const props = defineProps<Props>();
 
-// Computed
-const tags = computed((state) => {
-  return { ...state.filters[props.type].tags };
+/*
+    Store
+*/
+const filters = useFiltersStore();
+
+/*
+    Tags
+*/
+// Get a list of tags for the type(new/used/cpo)
+const tags = computed(() => {
+  return { ...filters[props.type].tags };
 });
+// Check if ANY tags are selected
 const tagsAreSelected = computed(() => {
-  return _some(tags, (tag) => tag.isSelected);
+  return _some(tags.value, (tag) => tag.isSelected);
 });
-const removeTag = (key: number) => {
-  alert(key);
+// Remove the tag
+const removeTag = (key: string) => {
+  alert('pretending to remove tag with key: ' + key);
 };
 </script>
 
 <style scoped>
-</style>
+.chip {
+  display: inline-block;
+  background: pink;
+}</style>
