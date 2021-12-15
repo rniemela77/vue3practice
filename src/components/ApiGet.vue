@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const text = ref("");
+const text = ref("Loading axios.get...");
 
 /*
 const axios = require("axios");
@@ -27,7 +27,7 @@ axios
 */
 /*
 WORKS
-
+*/
 const axios = require("axios");
 async function getAxios() {
   let res = await axios.get("https://reqbin.com/echo");
@@ -35,7 +35,6 @@ async function getAxios() {
   text.value = res.data;
 }
 getAxios();
-*/
 </script>
 
 <style scoped>
